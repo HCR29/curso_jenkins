@@ -31,6 +31,7 @@ pip install -r requirements.txt --break-system-packages
 mkdir -p reports
 # Ejecutar pruebas
 echo "Ejecutano pruebas con pytest"
+
 venv/bin/python -m pytest tests/ --junitxml=reports/test-results.xml --html=reports/report.html --self-contained-html
 
 echo "pruebas finalizadas resultados en reports"
