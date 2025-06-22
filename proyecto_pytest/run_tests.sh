@@ -12,9 +12,9 @@ fi
 if [ -f "venv/bin/activate" ]; then
     # Linux/MacOS
     source venv/bin/activate
-elif [ -f "venv/Scripts/activate" ]; then
+elif [ -f "venv/scripts/activate" ]; then
     # Windows
-    source venv/Scripts/activate
+    source venv/scripts/activate
 else
     echo "Error: No se pudo encontrar el script de activación"
     exit 1
