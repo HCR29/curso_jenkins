@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "ingresando al proyecto"
+cd proyect:pytest
 
 echo "activando un entorno virtual"
 source venv/bin/activate
