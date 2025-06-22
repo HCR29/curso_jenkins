@@ -1,22 +1,26 @@
 #!/bin/bash
 
-echo "activando un entorno virtual"
-if [!-d "venv"]; then
-	echo "entorno virtual no encontrado, creandolo"
-	python3 -m venv venv
-fi
-source venv/bin/activate
+echo "Activando entorno virtual"
 
-#Avtivar entorno virtual correctamente
-if[-f "venv/bin/avtivate"]; then
-	source venv/bin/activate
-elif[ -f "venv/Scripts/avtivate"]; then
-	source venv/Scripts/activate
+# Crear entorno virtual si no existe
+if [ ! -d "venv" ]; then
+    echo "Entorno virtual no encontrado, creándolo..."
+    python -m venv venv || python3 -m venv venv || { echo "Error al crear el entorno virtual"; exit 1; }
+fi
+
+# Activar entorno virtual según el sistema operativo
+if [ -f "venv/bin/activate" ]; then
+    # Linux/MacOS
+    source venv/bin/activate
+elif [ -f "venv/Scripts/activate" ]; then
+    # Windows
+    source venv/Scripts/activate
 else
-	echo "Error : no se pudo activar el entorno virtual"
-	exit 1
+    echo "Error: No se pudo encontrar el script de activación"
+    exit 1
 fi
 
+echo "Entorno virtual activado correctamente"
 #Verificar si pip esta instalando correctamente
 
 echo "instalando dependencias"
