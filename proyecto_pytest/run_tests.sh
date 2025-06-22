@@ -19,7 +19,7 @@ else
     echo "Error: No se pudo encontrar el script de activación"
     exit 1
 fi
-mkdir -p reports
+
 
 echo "Entorno virtual activado correctamente"
 #Verificar si pip esta instalando correctamente
@@ -28,7 +28,7 @@ echo "instalando dependencias"
 pip install --upgrade pip --break-system-packages
 pip install -r requirements.txt --break-system-packages
 
-
+mkdir -p reports
 # Ejecutar pruebas
 echo "Ejecutano pruebas con pytest"
 
