@@ -1,35 +1,46 @@
 #!/bin/bash
 
-echo "Activando entorno virtual"
+# Configuración
+VENV_DIR="venv"
+REPORTS_DIR="reports"
 
-# Crear entorno virtual si no existe
-if [ ! -d "venv" ]; then
-    echo "Entorno virtual no encontrado, creándolo..."
-    python -m venv venv
-fi
-
-# Activar entorno virtual según el sistema operativo
-if [ -f "venv/bin/activate" ]; then
-    # Linux/MacOS
-    source venv/bin/activate
-elif [ -f "venv/Scripts/activate" ]; then
-    # Windows
-    source venv/Scripts/activate
-else
-    echo "Error: No se pudo encontrar el script de activación"
+# 1. Verificar Python
+if ! command -v python3 &> /dev/null; then
+    echo "ERROR: Python3 no encontrado. Instale con:"
+    echo "sudo apt-get update && sudo apt-get install -y python3 python3-venv"
     exit 1
 fi
 
-echo "Entorno virtual activado correctamente"
-#Verificar si pip esta instalando correctamente
+# 2. Crear directorio de reports
+mkdir -p "$REPORTS_DIR"
 
-echo "instalando dependencias"
-pip install --upgrade pip --break-system-packages
-pip install -r requirements.txt --break-system-packages
+# 3. Crear y activar entorno virtual
+echo "Creando entorno virtual..."
+python3 -m venv "$VENV_DIR" || {
+    echo "ERROR: Fallo al crear venv. Soluciones:"
+    echo "1. Instale python3-venv: sudo apt-get install python3-venv"
+    echo "2. Use: python3 -m pip install virtualenv && python3 -m virtualenv $VENV_DIR"
+    exit 1
+}
 
-mkdir -p reports
-# Ejecutar pruebas
-echo "Ejecutano pruebas con pytest"
-venv/bin/python -m pytest tests/ --junitxml=reports/test-results.xml --html=reports/test-results.html --self-contained-html
+# 4. Activación multiplataforma
+if [ -f "$VENV_DIR/bin/activate" ]; then
+    source "$VENV_DIR/bin/activate"
+elif [ -f "$VENV_DIR/Scripts/activate" ]; then
+    source "$VENV_DIR/Scripts/activate"
+else
+    echo "ERROR: Script de activación no encontrado en:"
+    echo "- $VENV_DIR/bin/activate"
+    echo "- $VENV_DIR/Scripts/activate"
+    exit 1
+fi
 
-echo "pruebas finalizadas resultados en reports"
+# 5. Instalar dependencias y ejecutar pruebas
+echo "Instalando dependencias..."
+pip install -r requirements.txt || exit 1
+
+echo "Ejecutando pruebas..."
+pytest tests/ --junitxml="$REPORTS_DIR/results.xml" || exit 1
+
+echo "Proceso completado exitosamente"
+exit 0
