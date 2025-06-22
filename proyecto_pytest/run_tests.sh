@@ -5,7 +5,7 @@ echo "Activando entorno virtual"
 # Crear entorno virtual si no existe
 if [ ! -d "venv" ]; then
     echo "Entorno virtual no encontrado, creándolo..."
-    python -m venv venv || python3 -m venv venv || { echo "Error al crear el entorno virtual"; exit 1; }
+    python -m venv venv
 fi
 
 # Activar entorno virtual según el sistema operativo
