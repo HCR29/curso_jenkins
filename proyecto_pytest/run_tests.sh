@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "activando un entorno virtual"
-if [!"-d venv"]; then
+if [!-d "venv"]; then
 	python3 -m venv venv
 fi
 source venv/bin/activate
