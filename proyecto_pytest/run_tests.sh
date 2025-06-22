@@ -2,6 +2,7 @@
 
 echo "activando un entorno virtual"
 if [!-d "venv"]; then
+	echo "entorno virtual no encontrado, creandolo"
 	python3 -m venv venv
 fi
 source venv/bin/activate
