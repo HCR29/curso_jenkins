@@ -27,7 +27,7 @@ pipeline{
 			echo "Exito este bloque se ejecuta si todo el pipeline se ejecuta correctamente"
 		}
 		failure{
-			echo "Este bloque se ejecuta si el pipeline falla x1"
+			echo "Este bloque se ejecuta si el pipeline falla x1s"
 		}
 
 	}
