@@ -15,7 +15,7 @@ pipeline{
 		}
 		stage('Deploy'){
 			stage{
-				echo "Simulando un despliegue a un servidor de aplicaciones"
+				echo "Simulando un ll despliegue a un servidor de aplicaciones"
 			}
 		}
 	}
